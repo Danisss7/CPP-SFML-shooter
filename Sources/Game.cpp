@@ -8,6 +8,12 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 }
 
+void Game::initTextures()
+{
+	this->textures["BULLET"] = new sf::Texture();
+	this->textures["BULLET"]->loadFromFile("Resources/bullet.png");
+}
+
 void Game::initPlayer()
 {
 	this->player = new Player();
@@ -17,6 +23,7 @@ void Game::initPlayer()
 Game::Game()
 {
 	this->initWindow();
+	this->initTextures();
 	this->initPlayer();
 }
 
@@ -24,6 +31,18 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->player;
+
+	//Delete all textures
+	for (auto& i : this->textures)
+	{
+		delete i.second;
+	}
+
+	//Delete bullets
+	for (auto* i : this->bullets)
+	{
+		delete i;
+	}
 }
 
 //Functions
@@ -36,7 +55,7 @@ void Game::run()
 	}
 }
 
-void Game::update()
+void Game::updatePollEvents()
 {
 	sf::Event e;
 	while (this->window->pollEvent(e))
@@ -46,7 +65,10 @@ void Game::update()
 		if (e.Event::KeyPressed && e.Event::key.code == sf::Keyboard::Escape)
 			this->window->close();
 	}
+}
 
+void Game::updateInput()
+{
 	//Move player
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		this->player->move(-1.f, 0.f);
@@ -56,6 +78,42 @@ void Game::update()
 		this->player->move(0.f, -1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		this->player->move(0.f, 1.f);
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->canAttack())
+	{
+		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x, this->player->getPos().y, 0.f, -1.f, 5.f));
+	} 
+}
+
+void Game::updateBullets()
+{
+	unsigned counter = 0;
+	for (auto *bullet : this->bullets)
+	{
+		bullet->update();
+
+		//removing bullet when its hitting the top of the window
+		if (bullet->getBounds().top + bullet->getBounds().height <= 0.f)
+		{
+			//Delete bullets
+			delete this->bullets.at(counter);
+			this->bullets.erase(this->bullets.begin() + counter);
+			--counter;
+		}
+
+		++counter;
+	}
+}
+
+void Game::update()
+{
+	this->updatePollEvents();
+
+	this->updateInput();
+
+	this->player->update();
+
+	this->updateBullets();
 }
 
 void Game::render()
@@ -64,6 +122,11 @@ void Game::render()
 
 	//Draw everything
 	this->player->render(*this->window);
+
+	for (auto *bullet : this->bullets)
+	{
+		bullet->render(this->window);
+	}
 
 	this->window->display();
 }
