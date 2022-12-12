@@ -11,8 +11,8 @@ private:
     sf::Sprite sprite;
     sf::Texture texture;
 
+    float sizes[3]{ 4.f, 10.f, 100.f };
     float movementSpeed;
-
     float attackCooldown;
     float attackCooldownMax;
 
