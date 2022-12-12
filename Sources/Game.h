@@ -1,8 +1,11 @@
 #pragma once
 
 #include<map>
+#include<string>
+#include<sstream>
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 /*Class that acts as the game engine.
 Wrapper.class.*/
@@ -17,14 +20,34 @@ private:
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
 	
+	//GUI
+	sf::Font font;
+	sf::Text pointText;
+
+	//World
+	sf::Texture worldBackgroundTex;
+	sf::Sprite worldBackground;
+
+	//Systems
+	unsigned points;
+	
 	//Player
 	Player* player;
+
+	//Enemies
+	float spawnTimer;
+	float spawnTimerMax;
+	std::vector<Enemy*> enemies;
 
 	//Private functions
 	void initWindow();
 	void initTextures();
+	void initGUI();
+	void initWorld();
+	void initSystems();
 
 	void initPlayer();
+	void initEnemies();
 public:
 	Game();
 	virtual ~Game();
@@ -34,7 +57,14 @@ public:
 
 	void updatePollEvents();
 	void updateInput();
+	void updateGUI();
+	void updateWorld();
+	void updateCollision();
 	void updateBullets();
+	void updateEnemies();
+	void updateCombat();
 	void update();
+	void renderGUI();
+	void renderWorld();
 	void render();
 };
