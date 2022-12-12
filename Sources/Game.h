@@ -1,8 +1,8 @@
 #pragma once
 
-#include<map>
-#include<string>
-#include<sstream>
+#include <map>
+#include <string>
+#include <sstream>
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
@@ -10,61 +10,67 @@
 /*Class that acts as the game engine.
 Wrapper.class.*/
 
-class Game
-{
+class Game {
 private:
-	//Window
-	sf::RenderWindow* window;
+    //Window
+    sf::RenderWindow* window;
 
-	//Resources
-	std::map<std::string, sf::Texture*> textures;
-	std::vector<Bullet*> bullets;
-	
-	//GUI
-	sf::Font font;
-	sf::Text pointText;
+    //Resources
+    std::map<std::string, sf::Texture*> textures;
+    std::vector<Bullet*> bullets;
 
-	//World
-	sf::Texture worldBackgroundTex;
-	sf::Sprite worldBackground;
+    //GUI
+    sf::Font font;
+    sf::Text pointText;
 
-	//Systems
-	unsigned points;
-	
-	//Player
-	Player* player;
+    sf::Text GameOverText;
 
-	//Enemies
-	float spawnTimer;
-	float spawnTimerMax;
-	std::vector<Enemy*> enemies;
+    //World
+    sf::Texture worldBackgroundTex;
+    sf::Sprite worldBackground;
 
-	//Private functions
-	void initWindow();
-	void initTextures();
-	void initGUI();
-	void initWorld();
-	void initSystems();
+    //Systems
+    unsigned points;
 
-	void initPlayer();
-	void initEnemies();
+    //Player
+    Player* player;
+
+    //Player GUI
+    sf::RectangleShape playerHpBar;
+    sf::RectangleShape playerHpBarBack;
+
+    //Enemies
+    float spawnTimer;
+    float spawnTimerMax;
+    std::vector<Enemy*> enemies;
+
+    //Private functions
+    void initWindow();
+    void initTextures();
+    void initGUI();
+    void initWorld();
+    void initSystems();
+
+    void initPlayer();
+    void initEnemies();
+
 public:
-	Game();
-	virtual ~Game();
+    Game();
+    virtual ~Game();
 
-	//Functions
-	void run();
+    //Functions
+    void run();
 
-	void updatePollEvents();
-	void updateInput();
-	void updateGUI();
-	void updateWorld();
-	void updateCollision();
-	void updateBullets();
-	void updateEnemies();
-	void updateCombat();
-	void update();
-	void renderGUI();
-	void renderWorld();
-	void render();
+    void updatePollEvents();
+    void updateInput();
+    void updateGUI();
+    void updateWorld();
+    void updateCollision();
+    void updateBullets();
+    void updateEnemies();
+    void updateCombat();
+    void update();
+    void renderGUI();
+    void renderWorld();
+    void render();
 };

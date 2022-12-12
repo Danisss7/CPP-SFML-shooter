@@ -1,16 +1,17 @@
-#include <iostream>
 #include "Game.h"
+#include <time.h>
 
 using namespace std;
 using namespace sf;
 
-
 int main()
 {
-	Game game;
+    srand(static_cast<unsigned int>(time(0)));
 
-	game.run();
+    Game game;
 
-	//End of application
-	return 0;
+    game.run();
+
+    //End of application
+    return 0;
 }

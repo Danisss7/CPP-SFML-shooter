@@ -1,9 +1,4 @@
-﻿  Main.cpp
-C:\Users\sause\Desktop\doodle jump - Copy\Sources\Main.cpp(13,26): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\sause\Desktop\doodle jump - Copy\Sources\Main.cpp(86,56): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\sause\Desktop\doodle jump - Copy\Sources\Main.cpp(25,12): warning C4101: 'player': unreferenced local variable
-  doodle.vcxproj -> C:\Users\sause\Desktop\doodle jump - Copy\Debug\doodle.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (doodle.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Game.cpp
+C:\Users\sause\Desktop\doodle jump - Copy\Sources\Game.cpp(232,23): warning C4018: '<': signed/unsigned mismatch
+  doodle.vcxproj -> C:\Users\sause\Desktop\doodle jump - Copy\Debug\SFML shooter.exe
