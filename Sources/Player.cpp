@@ -2,7 +2,7 @@
 
 void Player::initVariables()
 {
-	this->movementSpeed = 1.f;
+	this->movementSpeed = 3.f;
 	this->attackCooldownMax = 10.f;
 	this->attackCooldown = this->attackCooldownMax;
 
@@ -41,6 +41,21 @@ Player::~Player()
 const sf::Vector2f& Player::getPos() const
 {
 	return this->sprite.getPosition();
+}
+
+const sf::FloatRect Player::getBounds() const
+{
+	return this->sprite.getGlobalBounds();
+}
+
+void Player::setPosition(const sf::Vector2f pos)
+{
+	this->sprite.setPosition(pos);
+}
+
+void Player::setPosition(const float x, const float y)
+{
+	this->sprite.setPosition(x, y);
 }
 
 void Player::move(const float dirX, const float dirY)
